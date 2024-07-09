@@ -1,0 +1,24 @@
+############# Database Properties ###########################################
+server.port: 8084
+spring:
+  port: 8084
+  datasource:
+    driver-class-name=org: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/reddit
+    username: postgres
+    password: postgres
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+############# Mail Properties ###########################################
+  mail:
+    host: sandbox.smtp.mailtrap.io
+    port: 2525
+    username: 2da322cca4db24
+    password: 148a363cd7fdc9
+    ssl: no
+    tls: yes
