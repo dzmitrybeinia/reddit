@@ -37,5 +37,4 @@ public class JwtProvider {
 
         return this.jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
     }
-
 }
