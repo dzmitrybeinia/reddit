@@ -24,5 +24,5 @@ public class Comment {
     private Instant createdDate;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId", referencedColumnName = "userId")
-    private AppUser appUser;
+    private AppUser user;
 }

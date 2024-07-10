@@ -1,7 +1,6 @@
 ############# Database Properties ###########################################
 server.port: 8084
 spring:
-  port: 8084
   datasource:
     driver-class-name=org: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/reddit
@@ -22,3 +21,11 @@ spring:
     password: 148a363cd7fdc9
     ssl: no
     tls: yes
+############ JWT Properties #####################
+jwt:
+  expiration:
+    time: 900000
+  public:
+    key: classpath:app.pub
+  private:
+    key: classpath:app.key

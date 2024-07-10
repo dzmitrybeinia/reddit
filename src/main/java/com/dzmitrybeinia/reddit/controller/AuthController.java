@@ -33,11 +33,11 @@ public class AuthController {
         return new ResponseEntity<>("Account Activated Successfully", OK);
     }
 
-//    @PostMapping("/login")
-//    public AuthenticationResponse login(@RequestBody LoginRequest loginRequest) {
-//        return authService.login(loginRequest);
-//    }
-//
+    @PostMapping("/login")
+    public AuthenticationResponse login(@RequestBody LoginRequest loginRequest) {
+        return authService.login(loginRequest);
+    }
+
 //    @PostMapping("/refresh/token")
 //    public AuthenticationResponse refreshTokens(@Valid @RequestBody RefreshTokenRequest refreshTokenRequest) {
 //        return authService.refreshToken(refreshTokenRequest);

@@ -33,11 +33,11 @@ import java.security.interfaces.RSAPublicKey;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-//    @Value("${jwt.public.key}")
-//    RSAPublicKey publicKey;
-//
-//    @Value("${jwt.private.key}")
-//    RSAPrivateKey privateKey;
+    @Value("${jwt.public.key}")
+    RSAPublicKey publicKey;
+
+    @Value("${jwt.private.key}")
+    RSAPrivateKey privateKey;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
@@ -48,25 +48,25 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity.cors().and()
                 .csrf().disable()
-//                .authorizeHttpRequests(authorize -> authorize
-//                        .requestMatchers("/api/auth/**")
-//                        .permitAll()
-//                        .requestMatchers(HttpMethod.GET, "/api/subreddit")
-//                        .permitAll()
-//                        .requestMatchers(HttpMethod.GET, "/api/posts/")
-//                        .permitAll()
-//                        .requestMatchers(HttpMethod.GET, "/api/posts/**")
-//                        .permitAll()
-//                        .requestMatchers("/v2/api-docs",
-//                                "/configuration/ui",
-//                                "/swagger-resources/**",
-//                                "/configuration/security",
-//                                "/swagger-ui.html",
-//                                "/webjars/**")
-//                        .permitAll()
-//                        .anyRequest()
-//                        .authenticated())
-//                .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/api/auth/**")
+                        .permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/subreddit")
+                        .permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/posts/")
+                        .permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/posts/**")
+                        .permitAll()
+                        .requestMatchers("/v2/api-docs",
+                                "/configuration/ui",
+                                "/swagger-resources/**",
+                                "/configuration/security",
+                                "/swagger-ui.html",
+                                "/webjars/**")
+                        .permitAll()
+                        .anyRequest()
+                        .authenticated())
+                .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling(exceptions -> exceptions
                         .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint())
@@ -79,15 +79,15 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-//    @Bean
-//    JwtDecoder jwtDecoder() {
-//        return NimbusJwtDecoder.withPublicKey(this.publicKey).build();
-//    }
-//
-//    @Bean
-//    JwtEncoder jwtEncoder() {
-//        JWK jwk = new RSAKey.Builder(this.publicKey).privateKey(this.privateKey).build();
-//        JWKSource<SecurityContext> jwks = new ImmutableJWKSet<>(new JWKSet(jwk));
-//        return new NimbusJwtEncoder(jwks);
-//    }
+    @Bean
+    JwtDecoder jwtDecoder() {
+        return NimbusJwtDecoder.withPublicKey(this.publicKey).build();
+    }
+
+    @Bean
+    JwtEncoder jwtEncoder() {
+        JWK jsonWebKey = new RSAKey.Builder(this.publicKey).privateKey(this.privateKey).build();
+        JWKSource<SecurityContext> jsonWebKeySource = new ImmutableJWKSet<>(new JWKSet(jsonWebKey));
+        return new NimbusJwtEncoder(jsonWebKeySource);
+    }
 }
