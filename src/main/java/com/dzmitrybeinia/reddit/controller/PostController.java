@@ -2,6 +2,7 @@ package com.dzmitrybeinia.reddit.controller;
 
 import com.dzmitrybeinia.reddit.dto.PostRequest;
 import com.dzmitrybeinia.reddit.dto.PostResponse;
+import com.dzmitrybeinia.reddit.model.Post;
 import com.dzmitrybeinia.reddit.service.PostService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,9 +21,9 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping
-    public ResponseEntity<Void> createPost(@RequestBody PostRequest postRequest) {
-        postService.save(postRequest);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<Post> createPost(@RequestBody PostRequest postRequest) {
+        var post = postService.save(postRequest);
+        return status(HttpStatus.CREATED).body(post);
     }
 
     @GetMapping
